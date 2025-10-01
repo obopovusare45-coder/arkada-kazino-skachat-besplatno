@@ -144,36 +144,43 @@ body {
 
 /* Hero Section */
 .hero {
-    background-color: #1e3c72; /* fallback color */
-    background-image: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.4)), url('./hero-bg.png');
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
+    position: relative;
     min-height: 80vh;
     display: flex;
     align-items: center;
-    color: white;
+    justify-content: center;
     text-align: center;
-    position: relative;
+    color: white;
+    overflow: hidden;
 }
 
+/* Фоновое изображение через псевдоэлемент */
+.hero::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: url('./hero-bg.png') center/cover no-repeat;
+    z-index: 0;
+}
+
+/* Градиент поверх фонового изображения */
 .hero-overlay {
     position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: linear-gradient(135deg, rgba(30, 60, 114, 0.3), rgba(42, 82, 152, 0.3));
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.4));
+    z-index: 1;
 }
 
+/* Контент */
 .hero-content {
+    position: relative;
+    z-index: 2;
     max-width: 800px;
     margin: 0 auto;
-    z-index: 2;
-    position: relative;
     padding: 2rem;
 }
 
+/* Заголовки */
 .hero-title {
     font-size: 3.5rem;
     margin-bottom: 1.5rem;
@@ -354,6 +361,13 @@ body {
     color: white;
 }
 
+.login-methods {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2rem;
+    margin: 2.5rem 0;
+}
+
 /* FAQ Section */
 .faq-section {
     background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
@@ -455,7 +469,6 @@ body {
     .burger-menu {
         display: flex;
     }
-    
     .nav {
         display: none;
         position: absolute;
@@ -466,95 +479,74 @@ body {
         box-shadow: 0 5px 15px rgba(0,0,0,0.3);
         z-index: 999;
     }
-    
     .menu-toggle:checked + .burger-menu + .nav {
         display: block;
     }
-    
     .menu-toggle:checked + .burger-menu span:nth-child(1) {
         transform: rotate(-45deg) translate(-5px, 6px);
     }
-    
     .menu-toggle:checked + .burger-menu span:nth-child(2) {
         opacity: 0;
     }
-    
     .menu-toggle:checked + .burger-menu span:nth-child(3) {
         transform: rotate(45deg) translate(-5px, -6px);
     }
-    
     .nav-list {
         flex-direction: column;
         padding: 1rem 0;
         gap: 0;
     }
-    
     .nav-list li {
         border-bottom: 1px solid rgba(255,255,255,0.1);
     }
-    
     .nav-list a {
         display: block;
         padding: 1.2rem 2rem;
         margin: 0;
     }
-    
     .header-content {
         flex-wrap: wrap;
     }
-    
-    /* Mobile-friendly hero */
+
+    /* Hero adjustments for mobile */
     .hero {
-        background-attachment: scroll;
         min-height: 70vh;
         padding: 2rem 0;
     }
-    
     .hero-title {
         font-size: 2.5rem;
     }
-    
     .hero-subtitle {
         font-size: 1.2rem;
     }
-    
     .content-section {
         padding: 2rem;
         margin-bottom: 2rem;
     }
-    
     .content-section h2 {
         font-size: 2rem;
     }
-    
     .footer-content {
         flex-direction: column;
         text-align: center;
     }
-    
     .bonus-grid, .games-categories {
         grid-template-columns: 1fr;
         gap: 1.5rem;
     }
-    
     .info-table, .payment-table {
         font-size: 0.9rem;
     }
-    
-    .info-table th, .payment-table th,
-    .info-table td, .payment-table td {
+    .info-table th, .payment-table th, .info-table td, .payment-table td {
         padding: 0.8rem;
     }
-    
     .faq-section h2 {
         font-size: 2.2rem;
     }
-    
     .faq-item h3 {
         padding: 1.5rem;
         font-size: 1.1rem;
     }
-    
     .faq-item p {
         padding: 1.5rem;
         font-size: 1rem;
@@ -565,41 +557,32 @@ body {
     .container {
         padding: 0 15px;
     }
-    
     .hero-title {
         font-size: 2rem;
     }
-    
     .hero-subtitle {
         font-size: 1.1rem;
     }
-    
     .hero-content {
         padding: 1rem;
     }
-    
     .content-section {
         padding: 1.5rem;
     }
-    
     .content-section h2 {
         font-size: 1.8rem;
     }
-    
     .btn {
         padding: 10px 20px;
         font-size: 0.9rem;
     }
-    
     .btn-hero {
         padding: 12px 24px;
         font-size: 1.1rem;
     }
-    
     .bonus-card, .category-item, .method-item {
         padding: 1.5rem;
     }
-    
     .info-box, .warning-box, .security-tips {
         padding: 1.5rem;
     }
@@ -612,15 +595,13 @@ body {
         animation-iteration-count: 1 !important;
         transition-duration: 0.01ms !important;
     }
-    
     .hero {
         background-attachment: scroll;
     }
 }
 
 /* Focus styles for accessibility */
-.btn:focus,
-.nav-list a:focus {
+.btn:focus, .nav-list a:focus {
     outline: 3px solid #ffd700;
     outline-offset: 2px;
 }
@@ -630,38 +611,9 @@ body {
     .content-section {
         border: 2px solid #000;
     }
-    
     .btn {
         border: 2px solid #000;
     }
 }
 
 /* Print styles */
-@media print {
-    .header, .footer, .btn, .burger-menu {
-        display: none;
-    }
-    
-    .hero {
-        background: none;
-        color: black;
-        min-height: auto;
-        padding: 2rem 0;
-    }
-    
-    .hero-title, .hero-subtitle {
-        color: black;
-        text-shadow: none;
-    }
-    
-    .content-section {
-        box-shadow: none;
-        border: 1px solid #ddd;
-        page-break-inside: avoid;
-    }
-    
-    .faq-section {
-        background: white;
-        color: black;
-    }
-}
